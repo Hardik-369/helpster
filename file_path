@@ -1,0 +1,76 @@
+export default function Component() {
+  // ... existing code ...
+
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-indigo-100 py-16 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto">
+        <div className="text-center mb-12">
+          <h2 className="text-4xl font-extrabold text-gray-900 mb-4">Our Expert Helpers</h2>
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto">Connect with skilled professionals across various domains</p>
+          <Button className="mt-6 bg-indigo-600 text-white hover:bg-indigo-700 transition-colors duration-300">
+            <UserPlus className="mr-2 h-5 w-5" /> Become a Helper
+          </Button>
+        </div>
+        
+        <div className="mb-12 flex flex-wrap justify-center gap-3">
+          {categories.map(category => (
+            <Button
+              key={category}
+              variant={selectedCategories.includes(category) ? "default" : "outline"}
+              onClick={() => toggleCategory(category)}
+              className="mb-2 rounded-full px-6 py-2 text-sm font-medium transition-all duration-300"
+            >
+              {category}
+            </Button>
+          ))}
+        </div>
+
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+          {filteredHelpers.map((helper, index) => (
+            <Card 
+              key={index} 
+              className="flex flex-col transition-all duration-300 ease-in-out transform hover:shadow-xl hover:-translate-y-2 bg-white"
+            >
+              <CardHeader className="text-center">
+                <div className="w-24 h-24 mx-auto mb-4 rounded-full bg-gradient-to-br from-indigo-400 to-purple-500 flex items-center justify-center">
+                  <span className="text-3xl font-bold text-white">{`${helper.firstName[0]}${helper.lastName[0]}`}</span>
+                </div>
+                <CardTitle className="text-2xl font-bold text-gray-800">{`${helper.firstName} ${helper.lastName}`}</CardTitle>
+                <Badge variant="secondary" className="mt-2 text-sm font-medium">{helper.category}</Badge>
+              </CardHeader>
+              <CardContent className="flex-grow text-center px-6">
+                <CardDescription className="text-sm text-gray-600 leading-relaxed">{helper.description}</CardDescription>
+              </CardContent>
+              <CardFooter className="flex justify-center space-x-4 pt-4 pb-6">
+                {helper.twitter && (
+                  <Button variant="outline" size="icon" asChild className="rounded-full hover:bg-blue-50 transition-colors duration-300">
+                    <a href={helper.twitter} target="_blank" rel="noopener noreferrer">
+                      <Twitter className="h-5 w-5 text-blue-400" />
+                      <span className="sr-only">Twitter profile of {helper.firstName} {helper.lastName}</span>
+                    </a>
+                  </Button>
+                )}
+                {helper.instagram && (
+                  <Button variant="outline" size="icon" asChild className="rounded-full hover:bg-pink-50 transition-colors duration-300">
+                    <a href={helper.instagram} target="_blank" rel="noopener noreferrer">
+                      <Instagram className="h-5 w-5 text-pink-500" />
+                      <span className="sr-only">Instagram profile of {helper.firstName} {helper.lastName}</span>
+                    </a>
+                  </Button>
+                )}
+                {helper.linkedin && (
+                  <Button variant="outline" size="icon" asChild className="rounded-full hover:bg-blue-50 transition-colors duration-300">
+                    <a href={helper.linkedin} target="_blank" rel="noopener noreferrer">
+                      <Linkedin className="h-5 w-5 text-blue-700" />
+                      <span className="sr-only">LinkedIn profile of {helper.firstName} {helper.lastName}</span>
+                    </a>
+                  </Button>
+                )}
+              </CardFooter>
+            </Card>
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
